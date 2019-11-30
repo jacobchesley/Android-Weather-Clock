@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="current_view_fragment" type="id"/>
+    <item name="clock_view_fragment" type="id"/>
+    <item name="settings_view_fragment" type="id"/>
+</resources>

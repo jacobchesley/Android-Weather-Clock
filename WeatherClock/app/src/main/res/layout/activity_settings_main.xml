@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsView">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20sp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:layout_marginBottom="20sp">
+
+            <TextView
+                android:layout_width="500sp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Clock"
+                android:id="@+id/settings_clock_label"
+                android:textSize="50sp" />
+
+            <Button
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="12 Hour"
+                android:id="@+id/settings_clock_button"
+                android:textSize="50sp"
+                android:layout_marginLeft="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:layout_marginBottom="20sp">
+
+            <TextView
+                android:layout_width="500sp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Temperature Units"
+                android:id="@+id/setting_temp_label"
+                android:textSize="50sp"
+                android:layout_marginBottom="20sp" />
+
+            <Button
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="F"
+                android:id="@+id/settings_temp_button"
+                android:textSize="50sp"
+                android:layout_marginLeft="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:layout_marginBottom="20sp" >
+
+            <TextView
+                android:layout_width="500sp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Zip Code"
+                android:id="@+id/setting_zip_label"
+                android:textSize="50sp" />
+
+            <EditText
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/settings_zip_input"
+                android:text="45244"
+                android:layout_marginLeft="20sp"
+                android:textSize="50sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:layout_marginBottom="20sp" >
+
+            <TextView
+                android:layout_width="500sp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Update Interval (mins)"
+                android:id="@+id/settings_update_interval"
+                android:textSize="50sp" />
+
+            <EditText
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/settings_update_interval_input"
+                android:text="5"
+                android:layout_marginLeft="20sp"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:layout_marginBottom="20sp" >
+
+            <TextView
+                android:layout_width="500sp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Last Update"
+                android:id="@+id/settings_last_update_label"
+                android:textSize="50sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=""
+                android:id="@+id/settings_last_update"
+                android:textSize="50sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

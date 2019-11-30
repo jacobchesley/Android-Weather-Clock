@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClockView">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20sp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1"
+            android:layout_gravity="top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="00:00"
+                android:id="@+id/clock_hour_min"
+                android:paddingRight="50sp"
+                android:singleLine="true"
+                android:textSize="260sp"
+                android:paddingLeft="0dp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:layout_gravity="center"
+                android:paddingTop="25sp">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="00/00/0000"
+                    android:id="@+id/clock_date"
+                    android:layout_gravity="center"
+                    android:textSize="45sp"
+                    android:textIsSelectable="false"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="00"
+                    android:id="@+id/clock_seconds"
+                    android:layout_gravity="center"
+                    android:textSize="75sp"
+                    android:paddingTop="25sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="AM"
+                    android:textSize="50dp"
+                    android:textIsSelectable="true"
+                    android:id="@+id/clock_am_pm"
+                    android:layout_gravity="left|bottom"
+                    android:gravity="bottom" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:layout_gravity="top"
+            android:paddingLeft="20sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="00°"
+                android:id="@+id/clock_current_temp"
+                android:textSize="125sp"
+                android:paddingRight="50sp"
+                android:gravity="center"
+                android:textColor="#FFFFFF" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="00°"
+                    android:id="@+id/clock_high_temp"
+                    android:textSize="50sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="00°"
+                    android:id="@+id/clock_low_temp"
+                    android:textSize="50sp"
+                    android:paddingTop="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="F"
+                android:id="@+id/clock_units"
+                android:textSize="50sp"
+                android:paddingRight="20sp"
+                android:paddingTop="0dp"
+                android:gravity="center"
+                android:paddingLeft="20sp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Weather"
+                        android:id="@+id/clock_weather"
+                        android:textSize="70dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="0dp"
+                        android:gravity="center"
+                        android:paddingLeft="20sp"
+                        android:textColor="#FFFFFF" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/clock_weather_icon"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Verbose Weather Desc"
+                    android:id="@+id/clock_weather_desc"
+                    android:textSize="40dp"
+                    android:paddingRight="0dp"
+                    android:paddingTop="15dp"
+                    android:gravity="center"
+                    android:paddingLeft="20sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
