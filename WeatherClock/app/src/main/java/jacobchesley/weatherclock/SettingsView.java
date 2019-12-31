@@ -1,5 +1,6 @@
 package jacobchesley.weatherclock;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -24,16 +25,11 @@ public class SettingsView extends Fragment {
         View returnView = inflater.inflate(R.layout.activity_settings_main, container, false);
         SetButtonHandlers(returnView);
         settingsView = returnView;
+        GetPreferences(returnView);
         return returnView;
     }
 
-    public void SetButtonHandlers(View view){
-
-        final Button clockButton = (Button) view.findViewById(R.id.settings_clock_button);
-        final Button tempButton = (Button) view.findViewById(R.id.settings_temp_button);
-        final EditText zipInput = (EditText) view.findViewById(R.id.settings_zip_input);
-        final EditText intervalInput = (EditText) view.findViewById(R.id.settings_update_interval_input);
-
+    public ClockView GetClockView(){
         int clockViewPos = -1;
         for(int i = 0; i <  getFragmentManager().getFragments().size(); i++){
             if( getFragmentManager().getFragments().get(i) instanceof ClockView){
@@ -42,10 +38,21 @@ public class SettingsView extends Fragment {
             }
         }
 
-        if(clockViewPos < 0){ return; }
+        if(clockViewPos < 0){ return null; }
 
         final ClockView clockView = (ClockView) getFragmentManager().getFragments().get(clockViewPos);
+        return clockView;
+    }
 
+    public void SetButtonHandlers(final View view){
+
+        final Button clockButton = (Button) view.findViewById(R.id.settings_clock_button);
+        final Button tempButton = (Button) view.findViewById(R.id.settings_temp_button);
+        final EditText zipInput = (EditText) view.findViewById(R.id.settings_zip_input);
+        final EditText intervalInput = (EditText) view.findViewById(R.id.settings_update_interval_input);
+        final EditText keyInput = (EditText) view.findViewById(R.id.weather_key_input);
+
+        final ClockView clockView = GetClockView();
 
         zipInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
         intervalInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -63,6 +70,7 @@ public class SettingsView extends Fragment {
                     clockView.Set12Hour();
                     use24Hour = false;
                 }
+                SetPreferences(view);
             }
         });
 
@@ -79,6 +87,7 @@ public class SettingsView extends Fragment {
                     tempButton.setText("F");
                     clockView.SetTempUnitsF();
                 }
+                SetPreferences(view);
             }
         });
 
@@ -95,6 +104,7 @@ public class SettingsView extends Fragment {
                         if (event == null || !event.isShiftPressed()) {
                             // Set zip code when done is pressed
                             clockView.SetWeatherLocation(zipInput.getText().toString());
+                            SetPreferences(view);
                             return false;  // Hide keyboard after
                         }
                     }
@@ -116,6 +126,7 @@ public class SettingsView extends Fragment {
                         if (event == null || !event.isShiftPressed()) {
                             // Set zip code when done is pressed
                             clockView.SetWeatherUpdateInterval(intervalInput.getText().toString());
+                            SetPreferences(view);
                             return false;  // Hide keyboard after
                         }
                     }
@@ -123,6 +134,101 @@ public class SettingsView extends Fragment {
                 }
             }
         );
+
+        // Set open weather maps API Key
+        keyInput.setOnEditorActionListener(
+                new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                                actionId == EditorInfo.IME_ACTION_DONE ||
+                                event != null &&
+                                        event.getAction() == KeyEvent.ACTION_DOWN &&
+                                        event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                            if (event == null || !event.isShiftPressed()) {
+                                // Set zip code when done is pressed
+                                clockView.SetWeatherAPIKey(keyInput.getText().toString());
+                                SetPreferences(view);
+                                return false;  // Hide keyboard after
+                            }
+                        }
+                        return false; // pass on to other listeners.
+                    }
+                }
+        );
+    }
+
+    public void GetPreferences(View view){
+
+        final Button clockButton = (Button) view.findViewById(R.id.settings_clock_button);
+        final Button tempButton = (Button) view.findViewById(R.id.settings_temp_button);
+        final EditText zipInput = (EditText) view.findViewById(R.id.settings_zip_input);
+        final EditText intervalInput = (EditText) view.findViewById(R.id.settings_update_interval_input);
+        final EditText keyInput = (EditText) view.findViewById(R.id.weather_key_input);
+        final ClockView clockView = GetClockView();
+
+        SharedPreferences preferences = getContext().getSharedPreferences("WEATHER_CLOCK_PREFS", 0);
+
+        // Set stored API key
+        String apiKeyPref = preferences.getString("WEATHER_API_KEY", "");
+        keyInput.setText(apiKeyPref);
+        clockView.SetWeatherAPIKey(apiKeyPref);
+
+        // Set stored update interval
+        String updateIntervalPref = preferences.getString("UPDATE_INTERVAL", "5");
+        intervalInput.setText(updateIntervalPref);
+        clockView.SetWeatherUpdateInterval(updateIntervalPref);
+
+        // Set stored zip code
+        String zipPref = preferences.getString("ZIP_CODE", "90210");
+        zipInput.setText(zipPref);
+        clockView.SetWeatherLocation(zipPref);
+
+        // Set stored temperature units
+        String tempUnitsPref = preferences.getString("TEMPERATURE_UNITS", "F");
+        tempButton.setText(tempUnitsPref);
+        if (tempButton.getText().toString().contains("F")) {
+            tempButton.setText("C");
+            clockView.SetTempUnitsC();
+        } else if (tempButton.getText().toString().contains("C")) {
+            tempButton.setText("K");
+            clockView.SetTempUnitsK();
+        } else {
+            tempButton.setText("F");
+            clockView.SetTempUnitsF();
+        }
+
+        // Set stored clock format
+        String clockPref = preferences.getString("CLOCK_FORMAT", "12 Hour");
+        clockButton.setText(clockPref);
+        if(clockButton.getText().toString().contains("12")){
+            clockView.Set12Hour();
+            use24Hour = false;
+        }
+        else{
+            clockView.Set24Hour();
+            use24Hour = true;
+        }
+    }
+
+    public void SetPreferences(View view){
+
+        final Button clockButton = (Button) view.findViewById(R.id.settings_clock_button);
+        final Button tempButton = (Button) view.findViewById(R.id.settings_temp_button);
+        final EditText zipInput = (EditText) view.findViewById(R.id.settings_zip_input);
+        final EditText intervalInput = (EditText) view.findViewById(R.id.settings_update_interval_input);
+        final EditText keyInput = (EditText) view.findViewById(R.id.weather_key_input);
+
+        SharedPreferences preferences = getContext().getSharedPreferences("WEATHER_CLOCK_PREFS", 0);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+
+        preferencesEditor.putString("WEATHER_API_KEY", keyInput.getText().toString());
+        preferencesEditor.putString("UPDATE_INTERVAL", intervalInput.getText().toString());
+        preferencesEditor.putString("ZIP_CODE", zipInput.getText().toString());
+        preferencesEditor.putString("TEMPERATURE_UNITS", tempButton.getText().toString());
+        preferencesEditor.putString("TIME_FORMAT", clockButton.getText().toString());
+
+        preferencesEditor.commit();
     }
 
     public void UpdateUpdateTime(long updateTime) {

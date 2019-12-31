@@ -213,6 +213,9 @@ public class ClockView extends Fragment{
         updateInterval = updateIntervalInput;
     }
 
+    void SetWeatherAPIKey(String apiKey){
+        weather.SetWeatherAPIKey(apiKey);
+    }
     void StartClock(){
 
         final boolean useWeekDate = true;

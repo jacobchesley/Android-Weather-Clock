@@ -21,11 +21,7 @@ public class Weather {
 
     String weatherSite = "http://api.openweathermap.org/data/2.5/";
     String weatherIconSite = "http://openweathermap.org/img/w/";
-
-    /**
-     * TODO: Enter your Open Weather Map API ID Here
-     */
-    String APIKey = "Your Open Weather Map API Key";
+    String APIKey = "";
 
     public static class WeatherData {
 
@@ -103,6 +99,10 @@ public class Weather {
     String GetLocation() { return now.cityName; }
 
     long GetUpdateTime() { return now.updateTime; }
+
+    void SetWeatherAPIKey(String apiKey){
+       APIKey = apiKey;
+    }
 
     void SetUnits(TempUnits units){
         currentUnit = units;
